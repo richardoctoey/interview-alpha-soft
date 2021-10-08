@@ -35,3 +35,13 @@ func (t *Artist) Create() error {
 func (t *Artist) Update() error {
 	return database.GetDatabase().Save(&t).Error
 }
+
+func ArtistDeleteById(id int) error {
+	db := database.GetDatabase()
+	var obj *Artist
+	err := db.Where("artist_id = ?", id).First(&obj).Error
+	if err != nil {
+		return err
+	}
+	return db.Delete(&obj).Error
+}

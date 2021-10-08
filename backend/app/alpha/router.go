@@ -6,8 +6,8 @@ import (
 )
 
 func SetupRouter(r *gin.Engine) {
-	r.POST("/music/add", music.AddMusic)
-	r.PATCH("/music/update/:id", music.UpdateMusic)
-	r.DELETE("/music/delete/:id", music.DeleteMusic)
+	r.POST("/music", music.AddMusic)
+	r.PATCH("/music/:id", music.UpdateMusic)
+	r.DELETE("/music/:id", music.DeleteMusic)
 	r.GET("/music", music.ListMusic)
 }
