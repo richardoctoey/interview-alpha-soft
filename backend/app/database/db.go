@@ -1,4 +1,4 @@
-package common
+package database
 
 import (
 	"gorm.io/driver/mysql"

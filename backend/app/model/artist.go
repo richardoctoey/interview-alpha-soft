@@ -15,6 +15,10 @@ type Artist struct {
 	SampleUrl string
 }
 
+func (t *Artist) TableName() string {
+	return "artist"
+}
+
 func (t *Artist) ParseFromRequest(req MusicFormRequest) {
 	t.ArtistName = req.ArtistName
 	t.AlbumName = req.AlbumName
@@ -25,7 +29,7 @@ func (t *Artist) ParseFromRequest(req MusicFormRequest) {
 }
 
 func (t *Artist) Create() error {
-	return database.GetDatabase().Save(&t).Error
+	return database.GetDatabase().Create(&t).Error
 }
 
 func (t *Artist) Update() error {

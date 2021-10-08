@@ -1,7 +1,7 @@
 package http
 
 import (
-	"backend/app/http/handler/music"
+	"backend/app/alpha/handler/music"
 	"github.com/gin-gonic/gin"
 )
 

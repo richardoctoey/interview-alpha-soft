@@ -1,18 +1,27 @@
 package music
 
 import (
-	"backend/app/common/http"
+	"backend/app/common/ahttp"
 	"backend/app/common/logger"
+	"backend/app/model"
 	"github.com/gin-gonic/gin"
 )
 
 func AddMusic(c *gin.Context) {
-	formRequest := MusicFormRequest{}
+	formRequest := model.MusicFormRequest{}
 	if err := c.BindJSON(&formRequest); err != nil {
 		logger.Error(err, nil)
-		http.ResponseFailed(c, err.Error(), nil)
+		ahttp.ResponseFailed(c, err.Error(), nil)
 		return
 	}
+	objMusic := new(model.Artist)
+	objMusic.ParseFromRequest(formRequest)
+	if err := objMusic.Create(); err != nil {
+		ahttp.ResponseFailed(c, err.Error(), objMusic)
+		return
+	}
+	ahttp.ResponseSuccess(c, "success", objMusic.ArtistId)
+	return
 }
 
 func ListMusic(c *gin.Context) {
