@@ -29,7 +29,27 @@ func ListMusic(c *gin.Context) {
 }
 
 func UpdateMusic(c *gin.Context) {
-
+	formRequest := model.MusicFormRequest{}
+	if err := c.ShouldBind(&formRequest); err != nil {
+		logger.Error(err, nil)
+		ahttp.ResponseFailed(c, err.Error(), nil)
+		return
+	}
+	artist := model.Artist{}
+	err := artist.FindArtistById(c.Param("id"))
+	if err != nil {
+		logger.Error(err, formRequest)
+		ahttp.ResponseFailed(c, err.Error(), nil)
+		return
+	}
+	artist.ParseFromRequest(formRequest)
+	if err := artist.Update(); err != nil {
+		logger.Error(err, artist)
+		ahttp.ResponseFailed(c, err.Error(), artist)
+		return
+	}
+	ahttp.ResponseSuccess(c, "success", artist)
+	return
 }
 
 func DeleteMusic(c *gin.Context) {
@@ -39,9 +59,9 @@ func DeleteMusic(c *gin.Context) {
 		ahttp.ResponseFailed(c, err.Error(), nil)
 		return
 	}
-	if err := model.ArtistDeleteById(formRequest.Id); err != nil {
-		logger.Error(err, formRequest.Id)
-		ahttp.ResponseFailed(c, err.Error(), formRequest.Id)
+	if err := model.ArtistDeleteById(c.Param("id")); err != nil {
+		logger.Error(err, c.Param("id"))
+		ahttp.ResponseFailed(c, err.Error(), c.Param("id"))
 		return
 	}
 	ahttp.ResponseSuccess(c, "success", nil)

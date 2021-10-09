@@ -2,6 +2,7 @@ package model
 
 import (
 	"backend/app/database"
+	"html"
 	"time"
 )
 
@@ -20,12 +21,12 @@ func (t *Artist) TableName() string {
 }
 
 func (t *Artist) ParseFromRequest(req MusicFormRequest) {
-	t.ArtistName = req.ArtistName
-	t.AlbumName = req.AlbumName
-	t.ImageUrl = req.ImageUrl
+	t.ArtistName = html.EscapeString(req.ArtistName)
+	t.AlbumName = html.EscapeString(req.AlbumName)
+	t.ImageUrl = html.EscapeString(req.ImageUrl)
 	t.ReleaseDate = time.Time(req.ReleaseDate)
 	t.Price = req.Price
-	t.SampleUrl = req.SampleUrl
+	t.SampleUrl = html.EscapeString(req.SampleUrl)
 }
 
 func (t *Artist) Create() error {
@@ -36,10 +37,19 @@ func (t *Artist) Update() error {
 	return database.GetDatabase().Save(&t).Error
 }
 
-func ArtistDeleteById(id int) error {
+func (t *Artist) FindArtistById(id string) error {
 	db := database.GetDatabase()
-	var obj *Artist
-	err := db.Where("artist_id = ?", id).First(&obj).Error
+	err := db.Where("artist_id = ?", id).First(&t).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func ArtistDeleteById(id string) error {
+	db := database.GetDatabase()
+	obj := Artist{}
+	err := obj.FindArtistById(id)
 	if err != nil {
 		return err
 	}

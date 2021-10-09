@@ -22,7 +22,6 @@ func (mt *myTime) UnmarshalJSON(bs []byte) error {
 }
 
 type MusicFormRequest struct {
-	Id          int     `uri:"id"`
 	ArtistName  string  `json:"artist_name" validate:"required,max=200"`
 	AlbumName   string  `json:"album_name" validate:"required,max=200"`
 	ImageUrl    string  `json:"image_url" validate:"max=200"`
