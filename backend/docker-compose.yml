@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-container
+    ports:
+      - 3306:3306
+    volumes:
+      - ./app/database/database.sql:/database.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: gwudainget
+      MYSQL_DATABASE: dbmusic
+      MYSQL_USER: alphasoft
+      MYSQL_PASSWORD: gwudainget
