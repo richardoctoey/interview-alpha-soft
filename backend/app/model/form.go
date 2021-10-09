@@ -1,7 +1,9 @@
 package model
 
 import (
+	"database/sql/driver"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -10,6 +12,39 @@ type myTime time.Time
 func (mt *myTime) String() string {
 	x := time.Time(*mt)
 	return x.Format("2006-01-02")
+}
+
+func (t *myTime) Scan(value interface{}) error {
+	switch v := value.(type) {
+	case []byte:
+		return t.UnmarshalText(string(v))
+	case string:
+		return t.UnmarshalText(v)
+	case time.Time:
+		*t = myTime(v)
+	case nil:
+		*t = myTime{}
+	default:
+		return fmt.Errorf("cannot sql.Scan() MyTime from: %#v", v)
+	}
+	return nil
+}
+
+func (t myTime) Value() (driver.Value, error) {
+	return driver.Value(time.Time(t).Format("2006-01-02")), nil
+}
+
+func (t *myTime) UnmarshalText(value string) error {
+	dd, err := time.Parse("2006-01-02", value)
+	if err != nil {
+		return err
+	}
+	*t = myTime(dd)
+	return nil
+}
+
+func (myTime) GormDataType() string {
+	return "DATE"
 }
 
 func (t myTime) MarshalJSON() ([]byte, error) {
