@@ -55,3 +55,12 @@ func ArtistDeleteById(id string) error {
 	}
 	return db.Delete(&obj).Error
 }
+
+func ArtistList() ([]*Artist, error) {
+	results := []*Artist{}
+	err := database.GetDatabase().Find(&results).Error
+	if err != nil {
+		return nil, err
+	}
+	return results, nil
+}

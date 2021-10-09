@@ -25,7 +25,14 @@ func AddMusic(c *gin.Context) {
 }
 
 func ListMusic(c *gin.Context) {
-
+	result, err := model.ArtistList()
+	if err != nil {
+		logger.Error(err, nil)
+		ahttp.ResponseFailed(c, err.Error(), nil)
+		return
+	}
+	ahttp.ResponseSuccess(c, "success", result)
+	return
 }
 
 func UpdateMusic(c *gin.Context) {
