@@ -1,0 +1,53 @@
+export var data = {
+  "mainheader1": "Nonton bola saja tidak cukup.",
+  "mainheader2": "Nikmati pertandingan bola dan kemenangannya.",
+  "mainheader3": "Ikut Taruhan Bola",
+
+  "navurl1": "Pertandingan Bola",
+  "navurl2": "Saldo & Laporan Gems",
+  "navurl3": "Tarik Saldo",
+  "navurl4": "Topup Saldo",
+  "navurl5": "Login",
+  "navurl6": "Logout",
+
+  "footballheader1": "Daftar Pertandingan",
+  "footballplacebet": "Pasang Taruhan Anda",
+  "footballyourgems": "Gems anda: ",
+  "footballsuccess": "Sukses memasang taruhan pada",
+  "footballvalue": "Nilai: ",
+  "footballhome": "Tuan Rumah",
+  "footballaway": "Lawan",
+  "footballdraw": "Draw",
+
+  "historyheader1": "Saldo Gems Sekarang:",
+  "historyheader2": "Riwayat Pembelian Minggu Ini",
+  "historytableheader1": "Tanggal Transaksi",
+  "historytableheader2": "Jenis Transaksi",
+  "historytableheader3": "Harga",
+  "historytableheader4": "Status",
+  "historytableheader5": "Hadiah Kemenangan",
+
+  "withdrawheader1": "Saldo Gems Sekarang:",
+  "withdrawheader2": "Jumlah Penarikan",
+  "withdrawhint1": "Minimum penarikan adalah 10 Gems",
+  "withdrawbutton": "Tarik",
+  "withdrawhint2": "Jumlah Gems yang mau ditarik",
+  "successwithdraw": "Sukses meminta penarikan, akan diproses segera",
+
+  "topupheader1": "Topup Gems",
+  "topuphint1": "Topup $1 usd akan mendapatkan 10 gems. Minimum pembelian adalah $5 usd",
+  "topuphint2": "Kirim uang ke akun skrill kami: stackbettingg@gmail.com",
+  "topuphint3": "Kemudian upload bukti transfer kesini",
+  "topuphint4": "Akan diproses dengan segera",
+  "topupformhint1": "Upload bukti pembayaran",
+  "topupformplaceholder1": "Jumlah Uang Dalam USD",
+  "topupformplaceholder2": "Choose file",
+  "topupformplaceholder3": "Upload sekarang",
+  "successtopup": "Sukses melakukan topup, akan diproses segera",
+
+  "loginforgotpassword": "Lupa Password",
+  "loginregister": "Daftar Akun Baru",
+
+  "nodata": "No Data",
+  "erroroccured": "Oops.. something happened",
+}
