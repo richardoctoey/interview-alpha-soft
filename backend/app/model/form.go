@@ -7,6 +7,15 @@ import (
 
 type myTime time.Time
 
+func (mt *myTime) String() string {
+	x := time.Time(*mt)
+	return x.Format("2006-01-02")
+}
+
+func (t myTime) MarshalJSON() ([]byte, error) {
+	return json.Marshal(time.Time(t).Format("2006-01-02"))
+}
+
 func (mt *myTime) UnmarshalJSON(bs []byte) error {
 	var s string
 	err := json.Unmarshal(bs, &s)

@@ -3,7 +3,6 @@ package model
 import (
 	"backend/app/database"
 	"html"
-	"time"
 )
 
 type Artist struct {
@@ -11,7 +10,7 @@ type Artist struct {
 	ArtistName string
 	AlbumName string
 	ImageUrl string
-	ReleaseDate time.Time
+	ReleaseDate myTime
 	Price float64
 	SampleUrl string
 }
@@ -24,7 +23,7 @@ func (t *Artist) ParseFromRequest(req MusicFormRequest) {
 	t.ArtistName = html.EscapeString(req.ArtistName)
 	t.AlbumName = html.EscapeString(req.AlbumName)
 	t.ImageUrl = html.EscapeString(req.ImageUrl)
-	t.ReleaseDate = time.Time(req.ReleaseDate)
+	t.ReleaseDate = req.ReleaseDate
 	t.Price = req.Price
 	t.SampleUrl = html.EscapeString(req.SampleUrl)
 }
