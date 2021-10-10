@@ -57,7 +57,7 @@ func ArtistDeleteById(id string) error {
 
 func ArtistList() ([]*Artist, error) {
 	results := []*Artist{}
-	err := database.GetDatabase().Find(&results).Error
+	err := database.GetDatabase().Order("artist_id desc").Find(&results).Error
 	if err != nil {
 		return nil, err
 	}

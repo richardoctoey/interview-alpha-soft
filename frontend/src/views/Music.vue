@@ -67,6 +67,27 @@
           </card>
         </modal>
 
+
+        <modal :show.sync="modalsplay"
+               @close="closeModalPlay"
+               body-classes="p-0"
+               modal-classes="modal-dialog-centered modal-md">
+          <card type="secondary" shadow
+                header-classes="bg-white pb-12"
+                body-classes="px-lg-12 py-lg-12"
+                class="border-0">
+            <template>
+              <div class="col-md-4 col-lg-4">
+                <p>Artist Name: {{this.selectedAudioArtist}}</p>
+                <p>Album Name: {{this.selectedAudioAlbum}}</p>
+                <audio controls id="audio">
+                <source :src="this.selectedAudio" type="audio/mpeg">
+                </audio>
+              </div>
+            </template>
+          </card>
+        </modal>
+
         <card shadow class="card-profile mt--300" no-body>
           <div class="px-4" v-show="loadError">
             <h1>{{this.$root.T("erroroccured")}}</h1>
@@ -79,6 +100,7 @@
                            @click="showCreate()">
                 <span class="d-block">Add New</span>
               </base-button>
+              <br/><br/>
             </div>
             <b-table striped hover :items="musics" :fields="fields">
               <template #cell(Num)="data">
@@ -88,7 +110,10 @@
                 <img :src="data.item.ImageUrl" alt="" /> {{data.item.AlbumName}}
               </template>
               <template #cell(SampleUrl)="data">
-                <source :src="data.item.SampleUrl" type="audio/mpeg">
+                <base-button size="sm" type="success"
+                             @click="showPlay(data.item.SampleUrl, data.item.ArtistName, data.item.AlbumName)">
+                  <span class="d-block">Play</span>
+                </base-button>
               </template>
               <template #cell(Action)="data">
                 <base-button size="sm" type="primary"
@@ -120,6 +145,7 @@ export default {
     musics: [],
     loadError: false,
     loadErrorMessage: '',
+    modalsplay: false,
     modals: false,
     modalsDelete: false,
     isUpdate: false,
@@ -142,6 +168,10 @@ export default {
 
     selectedDeleteName: '',
     selectedDeleteId: 0,
+
+    selectedAudio: '',
+    selectedAudioArtist: '',
+    selectedAudioAlbum: '',
   }),
   mounted() {
     this.loadData(1);
@@ -152,6 +182,11 @@ export default {
     },
     closeModalDelete() {
       this.modalsDelete = false;
+    },
+    closeModalPlay() {
+      this.modalsplay = false;
+      var audio = document.getElementById('audio');
+      audio.pause();
     },
     closeModal() {
       this.modals = false;
@@ -167,6 +202,14 @@ export default {
     showCreate() {
       this.isUpdate = false;
       this.modals = true;
+    },
+    showPlay(music, artist, album) {
+      this.modalsplay = true;
+      this.selectedAudio = music;
+      this.selectedAudioArtist = artist;
+      this.selectedAudioAlbum = album;
+      var audio = document.getElementById('audio');
+      audio.load();
     },
     showDelete(id, album_name) {
       this.modalsDelete = true;
