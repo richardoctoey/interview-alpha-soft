@@ -115,12 +115,7 @@ export const getBaseUrl = () => {
     let hostVar = window.location.hostname;
     let protocol = window.location.protocol;
     if (window.location.port) {
-        if (hostVar === 'localhost' || hostVar === '127.0.0.1') {
-            hostVar = protocol+`//${hostVar}:8080/`;
-        } else {
-            // hostVar = `${hostVar}:${window.location.port}`;
-            hostVar = protocol+`//${hostVar}:8080/`;
-        }
+        hostVar = protocol+`//${hostVar}:8080/`;
     } else {
         hostVar = protocol+`//${hostVar}/api/`;
     }
