@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import AppHeader from "./layout/AppHeader";
 import AppFooter from "./layout/AppFooter";
-import Music from "./views/Football.vue";
+import Music from "./views/Music.vue";
 
 Vue.use(Router);
 
